@@ -4,7 +4,7 @@ package task;
 
 public class Main {
 
-    static int[][] studentsMarks = {
+    static final int[][] STUDENTS_MARKS = {
             {4, 7, 10},
             {5, 6, 8},
             {2, 5, 6},
@@ -15,37 +15,38 @@ public class Main {
     static final double GOOD = 7.0;
     static final double PASS = 5.0;
 
+    static String classifyResult(double average) {
+        if (average >= GREAT) {
+            return "Congrats";
+        } else if (average >= GOOD) {
+            return "Nice";
+        } else if (average >= PASS) {
+            return "Fine";
+        } else {
+            return "Failed";
+        }
+    }
     public static void main(String[] args) {
 
-        for (int i = 0; i < studentsMarks.length; i++) {
+        for (int i = 0; i < STUDENTS_MARKS.length; i++) {
 
-            double result = averageMarks(i);
-            String classification;
+            double result = averageMarks(STUDENTS_MARKS[i]);
 
-            if (result >= GREAT) {
-                classification = "Congrats";
-            } else if (result >= GOOD) {
-                classification = "Nice";
-            } else if (result >= PASS) {
-                classification = "Fine";
-            } else {
-                classification = "Failed";
-            }
             System.out.println(
                     "Student " + (i + 1) +
                             " | Average: " + String.format("%.2f", result) +
-                            " | " + classification
+                            " | " + classifyResult(result)
             );
         }
     }
 
-    static double averageMarks(int studentIndex) {
+    static double averageMarks(int[] marks) {
         int sum = 0;
 
-        for (int j = 0; j < studentsMarks[studentIndex].length; j++) {
-            sum += studentsMarks[studentIndex][j];
+        for (int mark : marks) {
+            sum += mark;
         }
 
-        return (double) sum / studentsMarks[studentIndex].length;
+        return (double) sum / marks.length;
     }
 }
