@@ -3,9 +3,18 @@ package org.example.menu;
 import org.example.model.*;
 import org.example.shelter.Shelter;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleMenu {
+    private static final List<MenuOption> OPTIONS = List.of(
+            new MenuOption(1, "Add animal"),
+            new MenuOption(2, "List all animals"),
+            new MenuOption(3, "Find animals by species"),
+            new MenuOption(4, "Find available animals"),
+            new MenuOption(5, "Adopt an animal"),
+            new MenuOption(0, "Exit")
+    );
     private final Shelter<Animal> shelter;
     private final Scanner scanner = new Scanner(System.in);
 
@@ -13,15 +22,32 @@ public class ConsoleMenu {
         this.shelter = shelter;
     }
 
+    private Integer readInt() {
+        if (!scanner.hasNextInt()) {
+            System.out.println("Please enter a valid number.");
+            scanner.nextLine();
+            return null;
+        }
+        int number = scanner.nextInt();
+        scanner.nextLine();
+        return number;
+    }
+
+
     public void start() {
-        int executionCode;
+        Integer executionCode;
         while (true) {
             printMenu();
-            executionCode = scanner.nextInt();
-            scanner.nextLine();
-            if (executionCode == 0) {
-                break;
+
+            executionCode = readInt();
+            if (executionCode == null) {
+                continue;
             }
+            if (executionCode == 0) {
+                return;
+            }
+
+
             switch (executionCode) {
                 case 1 -> addNewAnimal();
 
@@ -29,29 +55,43 @@ public class ConsoleMenu {
 
                 case 3 -> findBySpecies();
 
+                case 4 -> findAvailableAnimals();
+
+                case 5 -> markAsAdopted();
                 default -> System.out.println("Invalid option");
             }
         }
-        // Call correct 'Shelter' methods based on selected option
     }
 
     private void addNewAnimal() {
         System.out.println("Adding an animal");
         System.out.println("Choose animal type: 1-Dog, 2-Cat, 3-Bird");
-        int animalType = scanner.nextInt();
-        scanner.nextLine();
+        Integer animalType = readInt();
 
+        if (animalType == null) {
+            return;
+        }
         if (animalType < 1 || animalType > 3) {
             System.out.println("Invalid animal type");
             return;
         }
 
+
         System.out.println("Enter animal name:");
         String name = scanner.nextLine();
-
+        if (name.isBlank()) {
+            System.out.println("Animals name cannot be just empty spaces");
+            return;
+        }
         System.out.println("Enter animal age:");
-        int age = scanner.nextInt();
-        scanner.nextLine();
+        Integer age = readInt();
+        if (age == null) {
+            return;
+        }
+        if (age < 0) {
+            System.out.println("Animals age cant be negative");
+            return;
+        }
         String added = " added successfully!";
         switch (animalType) {
             case 1 -> {
@@ -78,7 +118,7 @@ public class ConsoleMenu {
     }
 
     private void findBySpecies() {
-        System.out.println("Enter species (first letter in capital e.g. Cat):");
+        System.out.println("Enter species:");
         String species = scanner.nextLine();
 
         for (Animal animal : shelter.findBySpecies(species)) {
@@ -86,14 +126,60 @@ public class ConsoleMenu {
         }
     }
 
+    private void findAvailableAnimals() {
+        List<Animal> availableAnimals = shelter.findAvailableAnimals();
+        System.out.println("List of available animals:");
+        for (Animal animal : availableAnimals) {
+            System.out.println(animal);
+        }
+        if (availableAnimals.isEmpty()) {
+            System.out.println("There are no available animals");
+        }
+    }
+
+    private void markAsAdopted() {
+        List<Animal> availableAnimals = shelter.findAvailableAnimals();
+
+        if (availableAnimals.isEmpty()) {
+            System.out.println("There are no available animals to adopt.");
+
+            return;
+        }
+
+        System.out.println("Choose an animal to adopt:");
+
+        for (int i = 0; i < availableAnimals.size(); i++) {
+            System.out.println((i + 1) + ". " + availableAnimals.get(i));
+        }
+
+        System.out.println("Enter the number of the animal to adopt:");
+        Integer selection = readInt();
+        if (selection == null) {
+            return;
+        }
+        if (selection < 1 || selection > availableAnimals.size()) {
+            System.out.println("Invalid animal number.");
+            return;
+        }
+
+        Animal selectedAnimal = availableAnimals.get(selection - 1);
+
+        boolean result = shelter.markAsAdopted(
+                selectedAnimal.getId().toString()
+        );
+
+        if (result) {
+            System.out.println("Animal marked as adopted");
+
+        } else {
+            System.out.println("Unable to adopt the selected animal.");
+        }
+
+    }
+
     private void printMenu() {
-        System.out.println("""
-                1. Add animal
-                2. List all animals
-                3. Find animals by species
-                4. List available animals
-                5. Mark animal as adopted
-                0. Exit
-                """);
+        for (MenuOption option : OPTIONS) {
+            System.out.println(option.number() + ". " + option.label());
+        }
     }
 }
