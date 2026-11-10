@@ -38,12 +38,10 @@ public class Shelter<T extends Animal> {
         return availableAnimals;
     }
 
-    public boolean markAsAdopted(String id) {
-        for (T animal : animals) {
-            if (animal.getId().toString().equals(id) && animal.getAdoptionStatus() == AdoptionStatus.AVAILABLE) {
-                animal.markAsAdopted();
-                return true;
-            }
+    public boolean markAsAdopted(T animal) {
+        if (animals.contains(animal) && animal.getAdoptionStatus() == AdoptionStatus.AVAILABLE) {
+            animal.markAsAdopted();
+            return true;
         }
         return false;
     }

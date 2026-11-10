@@ -128,18 +128,18 @@ public class ConsoleMenu {
 
     private void findAvailableAnimals() {
         List<Animal> availableAnimals = shelter.findAvailableAnimals();
+        if (availableAnimals.isEmpty()) {
+            System.out.println("There are no available animals");
+            return;
+        }
         System.out.println("List of available animals:");
         for (Animal animal : availableAnimals) {
             System.out.println(animal);
-        }
-        if (availableAnimals.isEmpty()) {
-            System.out.println("There are no available animals");
         }
     }
 
     private void markAsAdopted() {
         List<Animal> availableAnimals = shelter.findAvailableAnimals();
-
         if (availableAnimals.isEmpty()) {
             System.out.println("There are no available animals to adopt.");
 
@@ -165,7 +165,7 @@ public class ConsoleMenu {
         Animal selectedAnimal = availableAnimals.get(selection - 1);
 
         boolean result = shelter.markAsAdopted(
-                selectedAnimal.getId().toString()
+                selectedAnimal
         );
 
         if (result) {
