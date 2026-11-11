@@ -1,0 +1,30 @@
+package org.example.payment;
+
+import org.example.model.Order;
+import org.example.model.PaymentResult;
+
+public class PaymentProcessor {
+    public PaymentResult process(Order order, PaymentMethod paymentMethod) {
+        if (paymentMethod == null) {
+            return new PaymentResult(false, "Payment method is missing");
+        }
+        if (order == null) {
+            return new PaymentResult(false, "Order does not exist");
+        }
+        if (order.isPaid()) {
+            return new PaymentResult(false, "Order is already paid for");
+        }
+        if (order.getItems().isEmpty()) {
+            return new PaymentResult(false, "Order is empty");
+        }
+
+
+        PaymentResult result = paymentMethod.pay(order.calculateTotal());
+
+        if (result.isSuccessful()) {
+            order.markAsPaid();
+        }
+
+        return result;
+    }
+}
