@@ -1,9 +1,7 @@
 package org.example.menu;
 
 import org.example.config.AppConfig;
-import org.example.model.Order;
-import org.example.model.OrderItem;
-import org.example.model.PaymentResult;
+import org.example.model.*;
 import org.example.payment.PaymentMethod;
 import org.example.payment.PaymentMethodFactory;
 import org.example.payment.PaymentProcessor;
@@ -35,6 +33,7 @@ public class ConsoleMenu {
                 case 2 -> addItem();
                 case 3 -> viewOrder();
                 case 4 -> payOrder();
+                case 5 -> applyDiscount();
                 case 0 -> running = false;
                 default -> System.out.println("Invalid option");
             }
@@ -99,6 +98,7 @@ public class ConsoleMenu {
         if (!orderExists()) {
             return;
         }
+        String currency = AppConfig.getInstance().getCurrency();
         System.out.println("Customer: " + currentOrder.getCustomerName());
         System.out.println("Status: " + currentOrder.getStatus());
         System.out.println("Items:");
@@ -107,7 +107,7 @@ public class ConsoleMenu {
             System.out.println("- " + item);
         }
 
-        System.out.println("Total: " + currentOrder.calculateTotal());
+        System.out.println("Total: " + currentOrder.calculateTotal() + " " + currency);
     }
 
     private void payOrder() {
@@ -133,6 +133,9 @@ public class ConsoleMenu {
                 default -> throw new IllegalArgumentException("Invalid payment method");
             };
 
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number entered.");
+            return;
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid payment method.");
             return;
@@ -169,12 +172,54 @@ public class ConsoleMenu {
         return PaymentMethodFactory.createGiftCardPayment(code, balance);
     }
 
+    private void applyDiscount() {
+        if (!orderExists()) {
+            return;
+        }
+        if (currentOrder.isPaid()) {
+            System.out.println("Cannot add items to a paid order.");
+            return;
+        }
+        System.out.println("""
+                Select discount option:
+                1. No discount
+                2. Fixed amount discount
+                3. Percentage discount
+                """);
+
+        try {
+            int answer;
+            answer = Integer.parseInt(scanner.nextLine());
+            switch (answer) {
+                case 1 -> currentOrder.applyDiscount(new NoDiscount());
+                case 2 -> {
+                    System.out.println(" Enter discount amount: ");
+                    double amount = Double.parseDouble(scanner.nextLine());
+                    currentOrder.applyDiscount(new FixedAmountDiscount("FIXED", amount));
+                }
+                case 3 -> {
+                    System.out.println(" Enter discount amount: ");
+                    double amount = Double.parseDouble(scanner.nextLine());
+                    currentOrder.applyDiscount(new PercentageDiscount("Percentage", amount));
+                }
+                default -> throw new IllegalArgumentException("Invalid option");
+
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
+    }
+
     private void printMenu() {
         System.out.println("""
                 1. Create order
                 2. Add item to order
                 3. View order
                 4. Pay order
+                5. Apply discount
                 0. Exit
                 """);
     }

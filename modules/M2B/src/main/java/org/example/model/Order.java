@@ -1,6 +1,7 @@
 package org.example.model;
 
 import lombok.Getter;
+import org.example.config.AppConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,9 @@ public class Order {
         for (OrderItem item : items) {
             total += item.calculateTotal();
         }
-
-        return discount.apply(total);
+        total = discount.apply(total);
+        total *= (1 + AppConfig.getInstance().getTaxRate());
+        return total;
     }
 
     public void markAsPaid() {
@@ -42,6 +44,13 @@ public class Order {
     }
 
     public void applyDiscount(Discount discount) {
+        if (isPaid()) {
+            throw new IllegalStateException("Cannot change discount on a paid order");
+        }
+        if (discount == null) {
+            throw new IllegalStateException("Discount cant be null");
+        }
+
         this.discount = discount;
     }
 
@@ -73,5 +82,7 @@ public class Order {
             }
             return new Order(this);
         }
+
     }
+
 }

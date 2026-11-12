@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cc41814f-84c1-4cf8-9940-625274594962" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/modules/M2B/src/main/java/org/example/menu/ConsoleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/M2B/src/main/java/org/example/menu/ConsoleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/M2B/src/main/java/org/example/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/M2B/src/main/java/org/example/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/M2B/src/main/java/org/example/model/PercentageDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/M2B/src/main/java/org/example/model/PercentageDiscount.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DanID0&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DanID0/Task-M1.git&quot;,
+    &quot;accountId&quot;: &quot;7a836bad-01fd-4286-978b-f05dc220b030&quot;
+  }
+}</component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="4.1900476253176985E-70" />
+      <entry key="S2" value="4.52433484863568E-18" />
+      <entry key="S5" value="1.1540427471944743E-7" />
+      <entry key="S10" value="3.3971204676822405E-4" />
+      <entry key="S30" value="0.0697814775015167" />
+      <entry key="S60" value="0.26899440753565296" />
+      <entry key="M2" value="0.653865443283496" />
+      <entry key="M5" value="2.065191337674744" />
+      <entry key="M10" value="5.4452948950099325" />
+      <entry key="M15" value="10.231132459958195" />
+      <entry key="M30" value="29.327730310627583" />
+      <entry key="H1" value="65.65350146307007" />
+      <entry key="H2" value="107.66216601946148" />
+      <entry key="H4" value="141.1777327656658" />
+      <entry key="D1" value="179.04898790048657" />
+      <entry key="W1" value="186.68968675574348" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0000000000000007" />
+      <entry key="S5" value="1.0000009720672265" />
+      <entry key="S10" value="1.0012768318034928" />
+      <entry key="S30" value="1.168243236689455" />
+      <entry key="S60" value="1.5853670265572917" />
+      <entry key="M2" value="2.270763525010371" />
+      <entry key="M5" value="4.3488459762503116" />
+      <entry key="M10" value="8.040813028755942" />
+      <entry key="M15" value="12.257223113476007" />
+      <entry key="M30" value="25.01131659196398" />
+      <entry key="H1" value="42.397177863442714" />
+      <entry key="H2" value="58.38259765345" />
+      <entry key="H4" value="69.62254005095716" />
+      <entry key="D1" value="81.34408216005642" />
+      <entry key="W1" value="83.61358295989415" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.016862941195381672" />
+      <entry key="MS500" value="0.4419637655318356" />
+      <entry key="S2" value="0.8153548639033545" />
+      <entry key="S5" value="0.9215927230201773" />
+      <entry key="S10" value="0.9614227592209759" />
+      <entry key="S30" value="1.2169333962036726" />
+      <entry key="S60" value="1.834891815694784" />
+      <entry key="M2" value="2.908445370288736" />
+      <entry key="M5" value="6.400770195711494" />
+      <entry key="M10" value="13.471841911104988" />
+      <entry key="M15" value="22.471911255001242" />
+      <entry key="M30" value="54.31859182686137" />
+      <entry key="H1" value="108.0309769336664" />
+      <entry key="H2" value="166.03022688161792" />
+      <entry key="H4" value="210.79129423155277" />
+      <entry key="D1" value="260.39126947809945" />
+      <entry key="W1" value="270.3030039782852" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3LatcBktWnXRKsUZ9ZRTcOHWW1h" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "combined-modules",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/damians.geidels/IdeaProjects/example/TaskMo1/src/Main.java",
+    "settings.editor.selected.configurable": "actions.on.save"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="task" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="m3a-practical" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2df11533d9fe-intellij.indexing.shared.core-IU-262.11879.100" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.11879.100" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc41814f-84c1-4cf8-9940-625274594962" name="Changes" comment="" />
+      <created>1793704085585</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1793704085585</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
