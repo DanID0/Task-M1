@@ -1,18 +1,20 @@
 package org.example.model;
 
-public class PercentageDiscount extends Discount {
-    private final double percentage;
+import java.math.BigDecimal;
 
-    public PercentageDiscount(String code, double percentage) {
+public class PercentageDiscount extends Discount {
+    private final BigDecimal percentage;
+
+    public PercentageDiscount(String code, BigDecimal percentage) {
         super(code);
-        if (percentage < 0 || percentage > 100) {
+        if (percentage == null || percentage.compareTo(BigDecimal.ZERO) < 0 || percentage.compareTo(BigDecimal.valueOf(100)) > 0) {
             throw new IllegalArgumentException("Percentage cannot be negative or over 100");
         }
         this.percentage = percentage;
     }
 
     @Override
-    public double apply(double originalAmount) {
-        return originalAmount - (originalAmount * percentage / 100);
+    public BigDecimal apply(BigDecimal originalAmount) {
+        return originalAmount - (originalAmount.multiply(percentage) / 100);
     }
 }

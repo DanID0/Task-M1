@@ -2,6 +2,8 @@ package org.example.payment;
 
 import org.example.model.PaymentResult;
 
+import java.math.BigDecimal;
+
 public class PaypalPayment extends PaymentMethod {
     private final String email;
 
@@ -11,7 +13,7 @@ public class PaypalPayment extends PaymentMethod {
     }
 
     @Override
-    public PaymentResult processPayment(double amount) {
+    public PaymentResult processPayment(BigDecimal amount) {
         if (email == null || !email.contains("@")) {
             return new PaymentResult(false, "Incorrect email adress");
         }

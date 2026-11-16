@@ -1,18 +1,21 @@
 package org.example.model;
 
-public class FixedAmountDiscount extends Discount {
-    private final double amount;
+import java.math.BigDecimal;
 
-    public FixedAmountDiscount(String code, double amount) {
+public class FixedAmountDiscount extends Discount {
+    private final BigDecimal amount;
+
+    public FixedAmountDiscount(String code, BigDecimal amount) {
         super(code);
-        if (amount < 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Discount cannot be negative");
         }
         this.amount = amount;
     }
 
     @Override
-    public double apply(double originalAmount) {
-        return Math.max(0, originalAmount - amount);
+    public BigDecimal apply(BigDecimal originalAmount) {
+        return originalAmount.subtract(amount).max(BigDecimal.ZERO);
+
     }
 }

@@ -80,31 +80,31 @@ public class HomeController {
 
         try {
             deviceId = CommandParser.extractDeviceId(fullCommand);
-            logger.debug("Processing command: deviceId={}", deviceId);
+            logger.debug("Processing command fullCommand={}: deviceId={}", fullCommand, deviceId);
             String command = CommandParser.extractCommand(fullCommand);
 
             Device device = findDevice(deviceId);
 
             if (device == null) {
-                logger.warn("Device not found: deviceId={}", deviceId);
+                logger.warn("Device not found: fullCommand={} deviceId={}", fullCommand, deviceId);
                 throw new DeviceNotFoundException(deviceId);
             }
 
             if (!device.isOnline()) {
-                logger.warn("Device offline, command skipped: deviceId={}", deviceId);
+                logger.warn("Device offline, command  fullCommand={} skipped: deviceId={}", fullCommand, deviceId);
                 throw new DeviceOfflineException(deviceId);
             }
             device.executeCommand(command);
-            logger.info("Command executed successfully: deviceId={}", deviceId);
+            logger.info("Command fullCommand={} executed successfully: deviceId={}", fullCommand, deviceId);
         } catch (DeviceOfflineException e) {
             throw e;
         } catch (DeviceNotFoundException e) {
             throw e;
         } catch (HomeAutomationException e) {
-            logger.error("Command execution failed: deviceId={}", deviceId);
-            throw new HomeAutomationException("Command failed for device '" + deviceId + "'", e);
+            logger.error("Command fullCommand={} execution failed: deviceId={}", fullCommand, deviceId);
+            throw new HomeAutomationException("Command '" + fullCommand + "' failed for device '" + deviceId + "'", e);
         } finally {
-            logger.debug("Command processing finished: deviceId={}", deviceId);
+            logger.debug("Command processing finished: fullCommand={} deviceId={}", fullCommand, deviceId);
         }
 
     }

@@ -1,12 +1,14 @@
 package org.example.model;
 
+import java.math.BigDecimal;
+
 public class NoDiscount extends Discount {
     public NoDiscount() {
         super("NONE");
     }
 
     @Override
-    public double apply(double originalAmount) {
+    public BigDecimal apply(BigDecimal originalAmount) {
         return originalAmount;
     }
 }

@@ -1,5 +1,7 @@
 package org.example.payment;
 
+import java.math.BigDecimal;
+
 public class PaymentMethodFactory {
 
     public static PaymentMethod createCreditCardPayment(
@@ -11,7 +13,7 @@ public class PaymentMethodFactory {
         return new PaypalPayment(email);
     }
 
-    public static PaymentMethod createGiftCardPayment(String code, double balance) {
+    public static PaymentMethod createGiftCardPayment(String code, BigDecimal balance) {
         return new GiftCardPayment(code, balance);
     }
 }

@@ -1,16 +1,20 @@
 package org.example.model;
 
+import java.math.BigDecimal;
+
+
 public class OrderItem {
     private final String name;
-    private final double price;
+    private final BigDecimal price;
     private final int quantity;
 
-    public OrderItem(String name, double price, int quantity) {
+    public OrderItem(String name, BigDecimal price, int quantity) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Item name cannot be null or blank.");
-        } else if (price <= 0) {
+        } else if (price == null || price.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Price must be positive");
-        } else if (quantity <= 0) {
+        }
+        if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be greater than zero.");
         }
         this.name = name;
@@ -19,8 +23,8 @@ public class OrderItem {
     }
 
 
-    public double calculateTotal() {
-        return price * quantity;
+    public BigDecimal calculateTotal() {
+        return price.multiply(BigDecimal.valueOf(quantity));
     }
 
     @Override

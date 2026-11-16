@@ -6,6 +6,7 @@ import org.example.payment.PaymentMethod;
 import org.example.payment.PaymentMethodFactory;
 import org.example.payment.PaymentProcessor;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -194,12 +195,12 @@ public class ConsoleMenu {
                 case 1 -> currentOrder.applyDiscount(new NoDiscount());
                 case 2 -> {
                     System.out.println(" Enter discount amount: ");
-                    double amount = Double.parseDouble(scanner.nextLine());
+                    BigDecimal amount = BigDecimal(scanner.nextLine());
                     currentOrder.applyDiscount(new FixedAmountDiscount("FIXED", amount));
                 }
                 case 3 -> {
                     System.out.println(" Enter discount amount: ");
-                    double amount = Double.parseDouble(scanner.nextLine());
+                    BigDecimal amount = BigDecimal.parseDouble(scanner.nextLine());
                     currentOrder.applyDiscount(new PercentageDiscount("Percentage", amount));
                 }
                 default -> throw new IllegalArgumentException("Invalid option");

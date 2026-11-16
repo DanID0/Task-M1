@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.math.BigDecimal;
+
 public abstract class Discount {
     private final String code;
 
@@ -11,5 +13,5 @@ public abstract class Discount {
         return code;
     }
 
-    public abstract double apply(double originalAmount);
+    public abstract BigDecimal apply(BigDecimal originalAmount);
 }

@@ -2,6 +2,8 @@ package org.example.payment;
 
 import org.example.model.PaymentResult;
 
+import java.math.BigDecimal;
+
 public class CreditCardPayment extends PaymentMethod {
     private final String cardNumber;
     private final String cardHolderName;
@@ -13,7 +15,7 @@ public class CreditCardPayment extends PaymentMethod {
     }
 
     @Override
-    public PaymentResult processPayment(double amount) {
+    public PaymentResult processPayment(BigDecimal amount) {
         if (cardHolderName == null || cardHolderName.isBlank()) {
             return new PaymentResult(false, "cardholder name is invalid");
         }
