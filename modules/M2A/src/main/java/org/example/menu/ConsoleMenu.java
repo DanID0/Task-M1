@@ -13,6 +13,7 @@ public class ConsoleMenu {
             new MenuOption(3, "Find animals by species"),
             new MenuOption(4, "Find available animals"),
             new MenuOption(5, "Adopt an animal"),
+            new MenuOption(6, "Sort animals"),
             new MenuOption(0, "Exit")
     );
     private final Shelter<Animal> shelter;
@@ -58,6 +59,8 @@ public class ConsoleMenu {
                 case 4 -> findAvailableAnimals();
 
                 case 5 -> markAsAdopted();
+
+                case 6 -> sortAnimals();
                 default -> System.out.println("Invalid option");
             }
         }
@@ -65,13 +68,13 @@ public class ConsoleMenu {
 
     private void addNewAnimal() {
         System.out.println("Adding an animal");
-        System.out.println("Choose animal type: 1-Dog, 2-Cat, 3-Bird");
+        System.out.println("Choose animal type: 1-Dog, 2-Cat, 3-Bird 4-Rabbit");
         Integer animalType = readInt();
 
         if (animalType == null) {
             return;
         }
-        if (animalType < 1 || animalType > 3) {
+        if (animalType < 1 || animalType > 4) {
             System.out.println("Invalid animal type");
             return;
         }
@@ -105,6 +108,10 @@ public class ConsoleMenu {
             case 3 -> {
                 shelter.addAnimal(new Bird(new AnimalId(), name, age));
                 System.out.println("Bird " + name + added);
+            }
+            case 4 -> {
+                shelter.addAnimal(new Rabbit(new AnimalId(), name, age));
+                System.out.println("Rabbit " + name + added);
             }
             default -> System.out.println("There is no such animal");
         }
@@ -175,6 +182,30 @@ public class ConsoleMenu {
             System.out.println("Unable to adopt the selected animal.");
         }
 
+    }
+
+    private void sortAnimals() {
+        System.out.println("Choose what you want to sort by:");
+        System.out.println("1. By name 2. By age");
+        Integer answer = readInt();
+        if (answer == null) {
+            return;
+        }
+        if (answer == 1) {
+            List<Animal> sortedAnimals = shelter.returnAnimalsByName();
+
+            for (Animal animal : sortedAnimals) {
+                System.out.println(animal);
+            }
+        } else if (answer == 2) {
+            List<Animal> sortedAnimals = shelter.returnAnimalsByAge();
+
+            for (Animal animal : sortedAnimals) {
+                System.out.println(animal);
+            }
+        } else {
+            System.out.println("No such option exists, try again");
+        }
     }
 
     private void printMenu() {
