@@ -16,4 +16,9 @@ public class PaymentMethodFactory {
     public static PaymentMethod createGiftCardPayment(String code, BigDecimal balance) {
         return new GiftCardPayment(code, balance);
     }
+
+    public static PaymentMethod createBankTransfer(String iban, String accountHolderName) {
+        return new BankTransfer(iban, accountHolderName);
+    }
 }
+

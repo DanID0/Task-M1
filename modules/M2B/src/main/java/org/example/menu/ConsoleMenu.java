@@ -33,8 +33,9 @@ public class ConsoleMenu {
                 case 1 -> createOrder();
                 case 2 -> addItem();
                 case 3 -> viewOrder();
-                case 4 -> payOrder();
-                case 5 -> applyDiscount();
+                case 4 -> displayOrders();
+                case 5 -> payOrder();
+                case 6 -> applyDiscount();
                 case 0 -> running = false;
                 default -> System.out.println("Invalid option");
             }
@@ -111,6 +112,15 @@ public class ConsoleMenu {
         System.out.println("Total: " + currentOrder.calculateTotal() + " " + currency);
     }
 
+    private void displayOrders() {
+        for (Order order : paymentProcessor.getCompletedOrders()) {
+            System.out.println("Customer: " + order.getCustomerName());
+            System.out.println("Status: " + order.getStatus());
+            System.out.println("Total: " + order.calculateTotal());
+        }
+
+    }
+
     private void payOrder() {
         if (!orderExists()) {
             return;
@@ -122,6 +132,7 @@ public class ConsoleMenu {
                 1. Credit Card
                 2. PayPal
                 3. Gift Card
+                4. Bank Transfer
                 """);
         int option;
         PaymentMethod paymentMethod;
@@ -131,6 +142,7 @@ public class ConsoleMenu {
                 case 1 -> createCreditCardPayment();
                 case 2 -> createPaypalPayment();
                 case 3 -> createGiftCardPayment();
+                case 4 -> createBankTransfer();
                 default -> throw new IllegalArgumentException("Invalid payment method");
             };
 
@@ -175,6 +187,14 @@ public class ConsoleMenu {
         BigDecimal balance = new BigDecimal(scanner.nextLine());
 
         return PaymentMethodFactory.createGiftCardPayment(code, balance);
+    }
+
+    private PaymentMethod createBankTransfer() {
+        System.out.println("Your bank Iban:");
+        String iban = scanner.nextLine();
+        System.out.println("Account holder name:");
+        String accountHolderName = scanner.nextLine();
+        return PaymentMethodFactory.createBankTransfer(iban, accountHolderName);
     }
 
     private void applyDiscount() {
@@ -223,8 +243,9 @@ public class ConsoleMenu {
                 1. Create order
                 2. Add item to order
                 3. View order
-                4. Pay order
-                5. Apply discount
+                4. View completed orders
+                5. Pay order
+                6. Apply discount
                 0. Exit
                 """);
     }
