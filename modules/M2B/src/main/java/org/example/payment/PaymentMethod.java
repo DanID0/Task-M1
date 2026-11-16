@@ -12,7 +12,7 @@ public abstract class PaymentMethod {
     }
 
     public PaymentResult pay(BigDecimal amount) {
-        if (amount <= 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             return new PaymentResult(false, "Amount must be greater than zero.");
         }
         return processPayment(amount);

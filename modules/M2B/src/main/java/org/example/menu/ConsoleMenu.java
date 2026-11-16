@@ -76,12 +76,12 @@ public class ConsoleMenu {
         System.out.println("Item name:");
         String itemName = scanner.nextLine();
 
-        double price;
+        BigDecimal price;
         int quantity;
 
         try {
             System.out.println("Price:");
-            price = Double.parseDouble(scanner.nextLine());
+            price = new BigDecimal(scanner.nextLine());
 
             System.out.println("Quantity:");
             quantity = Integer.parseInt(scanner.nextLine());
@@ -142,8 +142,12 @@ public class ConsoleMenu {
             return;
         }
 
-        PaymentResult result = paymentProcessor.process(currentOrder, paymentMethod);
-        System.out.println(result.getMessage());
+        try {
+            PaymentResult result = paymentProcessor.process(currentOrder, paymentMethod);
+            System.out.println(result.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Payment failed: " + e.getMessage());
+        }
     }
 
     private PaymentMethod createCreditCardPayment() {
@@ -168,7 +172,7 @@ public class ConsoleMenu {
         String code = scanner.nextLine();
 
         System.out.println("Gift card balance:");
-        double balance = Double.parseDouble(scanner.nextLine());
+        BigDecimal balance = new BigDecimal(scanner.nextLine());
 
         return PaymentMethodFactory.createGiftCardPayment(code, balance);
     }
@@ -178,7 +182,7 @@ public class ConsoleMenu {
             return;
         }
         if (currentOrder.isPaid()) {
-            System.out.println("Cannot add items to a paid order.");
+            System.out.println("Cannot apply a discount to a paid order.");
             return;
         }
         System.out.println("""
@@ -195,12 +199,12 @@ public class ConsoleMenu {
                 case 1 -> currentOrder.applyDiscount(new NoDiscount());
                 case 2 -> {
                     System.out.println(" Enter discount amount: ");
-                    BigDecimal amount = BigDecimal(scanner.nextLine());
+                    BigDecimal amount = new BigDecimal(scanner.nextLine());
                     currentOrder.applyDiscount(new FixedAmountDiscount("FIXED", amount));
                 }
                 case 3 -> {
                     System.out.println(" Enter discount amount: ");
-                    BigDecimal amount = BigDecimal.parseDouble(scanner.nextLine());
+                    BigDecimal amount = new BigDecimal(scanner.nextLine());
                     currentOrder.applyDiscount(new PercentageDiscount("Percentage", amount));
                 }
                 default -> throw new IllegalArgumentException("Invalid option");

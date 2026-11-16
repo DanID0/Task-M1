@@ -3,6 +3,7 @@ package org.example.model;
 import lombok.Getter;
 import org.example.config.AppConfig;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class Order {
         this.status = OrderStatus.NEW;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public void addItem(OrderItem item) {
         if (status == OrderStatus.PAID) {
             throw new IllegalStateException("Order has been paid, so this is not allowed");
@@ -26,13 +31,18 @@ public class Order {
         items.add(item);
     }
 
-    public double calculateTotal() {
-        double total = 0;
+    public BigDecimal calculateTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+
         for (OrderItem item : items) {
-            total += item.calculateTotal();
+            total = total.add(item.calculateTotal());
         }
+
         total = discount.apply(total);
-        total *= (1 + AppConfig.getInstance().getTaxRate());
+
+        BigDecimal taxRate = AppConfig.getInstance().getTaxRate();
+        total = total.multiply(BigDecimal.ONE.add(taxRate));
+
         return total;
     }
 
@@ -58,13 +68,9 @@ public class Order {
         return this.status == OrderStatus.PAID;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public static class Builder {
         private String customerName;
-        private List<OrderItem> items = new ArrayList<>();
+        private final List<OrderItem> items = new ArrayList<>();
 
         public Builder customerName(String customerName) {
             this.customerName = customerName;

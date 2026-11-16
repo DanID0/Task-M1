@@ -15,6 +15,6 @@ public class PercentageDiscount extends Discount {
 
     @Override
     public BigDecimal apply(BigDecimal originalAmount) {
-        return originalAmount - (originalAmount.multiply(percentage) / 100);
+        return originalAmount.subtract(originalAmount.multiply(percentage).divide(BigDecimal.valueOf(100)));
     }
 }
