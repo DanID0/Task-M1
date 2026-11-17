@@ -1,6 +1,7 @@
 package org.example.util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -46,5 +47,22 @@ public class CollectionUtils {
         }
 
         return (double) sum / items.size();
+    }
+
+    public static <T> Optional<T> findMax(
+            List<T> items,
+            Comparator<T> comparator
+    ) {
+        if (items.isEmpty()) {
+            return Optional.empty();
+        }
+        T max = items.get(0);
+        for (T item : items) {
+            if (comparator.compare(item, max) > 0) {
+                max = item;
+            }
+
+        }
+        return Optional.of(max);
     }
 }

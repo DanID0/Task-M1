@@ -2,8 +2,11 @@ package org.example.menu;
 
 import org.example.model.*;
 import org.example.shelter.Shelter;
+import org.example.util.CollectionUtils;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -14,6 +17,8 @@ public class ConsoleMenu {
             new MenuOption(4, "Find available animals"),
             new MenuOption(5, "Adopt an animal"),
             new MenuOption(6, "Sort animals"),
+            new MenuOption(7, "Animal statistics"),
+            new MenuOption(8, "View adoption history"),
             new MenuOption(0, "Exit")
     );
     private final Shelter<Animal> shelter;
@@ -61,6 +66,10 @@ public class ConsoleMenu {
                 case 5 -> markAsAdopted();
 
                 case 6 -> sortAnimals();
+
+                case 7 -> animalStatistics();
+
+                case 8 -> displayAdoptionHistory();
                 default -> System.out.println("Invalid option");
             }
         }
@@ -124,6 +133,17 @@ public class ConsoleMenu {
         }
     }
 
+    private void displayAdoptionHistory() {
+        if (shelter.getAdoptionHistory().isEmpty()) {
+            System.out.println("No adoption history yet.");
+            return;
+        }
+        System.out.println("List of adopted animals:");
+        for (AdoptionRecord adoptionRecord : shelter.getAdoptionHistory()) {
+            System.out.println(adoptionRecord);
+        }
+    }
+
     private void findBySpecies() {
         System.out.println("Enter species:");
         String species = scanner.nextLine();
@@ -131,6 +151,37 @@ public class ConsoleMenu {
         for (Animal animal : shelter.findBySpecies(species)) {
             System.out.println(animal);
         }
+    }
+
+    private int countSpecies(String species) {
+        int animalSpecies = 0;
+
+        for (Animal animal : shelter.getAllAnimals()) {
+            if (animal.getSpecies().equalsIgnoreCase(species)) {
+                animalSpecies++;
+            }
+        }
+
+        return animalSpecies;
+    }
+
+    private void animalStatistics() {
+        double averageAge = CollectionUtils.average(
+                shelter.getAllAnimals(),
+                Animal::getAge
+        );
+        System.out.println("Average animal age: " + averageAge);
+        Optional<Animal> oldestAnimal = CollectionUtils.findMax(
+                shelter.getAllAnimals(),
+                Comparator.comparingInt(Animal::getAge)
+        );
+        oldestAnimal.ifPresent(animal ->
+                System.out.println("Oldest animal: " + animal)
+        );
+        System.out.println("Dogs: " + countSpecies("Dog"));
+        System.out.println("Cats: " + countSpecies("Cat"));
+        System.out.println("Birds: " + countSpecies("Bird"));
+        System.out.println("Rabbits: " + countSpecies("Rabbit"));
     }
 
     private void findAvailableAnimals() {
@@ -171,10 +222,10 @@ public class ConsoleMenu {
 
         Animal selectedAnimal = availableAnimals.get(selection - 1);
 
-        boolean result = shelter.markAsAdopted(
-                selectedAnimal
-        );
+        System.out.println("Enter your name as an adopter");
+        String adopterName = scanner.nextLine();
 
+        boolean result = shelter.markAsAdopted(selectedAnimal, adopterName);
         if (result) {
             System.out.println("Animal marked as adopted");
 
